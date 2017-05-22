@@ -1,0 +1,55 @@
+﻿@model EmDica.Web.Models.QuestionarioModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div>
+    <h2>
+        <span>@Model.Nome</span>
+    </h2>    
+    <h4 style="text-align: justify">
+        <span>@Model.Descricao</span>
+    </h4>
+    
+    <hr />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+                
+        @Html.Hidden("tipoQuest", Convert.ToInt32(Model.TipoQuestionario))
+        
+        foreach (var pergunta in Model.Perguntas)
+        {
+            <h4>
+                @pergunta.Enunciado
+            </h4>
+
+            foreach (var alternativa in pergunta.Alternativas)
+            {
+                <div class="radio">
+                    <label>
+                        @Html.RadioButton(("pergunta" + pergunta.PerguntaId), new { @id=alternativa.AlternativaId })
+                        @alternativa.Descricao
+                    </label>
+                </div>
+            }
+
+            <hr />
+        }
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Salvar" class="btn btn-default" />
+            </div>
+        </div>
+
+    }
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
