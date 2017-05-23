@@ -73,14 +73,14 @@ namespace EmDica.Web.Controllers
                     if (questionario != null)
                         return View(questionario);
                     else
-                        return RedirectToAction("Create", new { tipoQuestionario = 1 });
+                        return RedirectToAction("Create", "Cliente");
                 }
                 else
-                    return RedirectToAction("Create", new { tipoQuestionario = 1 });                
+                    return RedirectToAction("Create", "Cliente");
             }
             catch (Exception ex)
             {
-                return RedirectToAction("Create", new { tipoQuestionario = 1 });
+                return RedirectToAction("Create", "Cliente");
             }
         }
 
