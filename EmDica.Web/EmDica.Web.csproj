@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -148,6 +152,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\QuestionarioController.cs" />
     <Compile Include="Domain\AlternativaDomain.cs" />
     <Compile Include="Domain\PerguntaDomain.cs" />
@@ -156,10 +162,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Util.cs" />
     <Compile Include="Models\AlternativaModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
     <Compile Include="Models\QuestionarioModel.cs" />
-    <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\TipoQuestionarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -189,7 +196,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\emdica - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\emdica - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\emdica - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\emdica - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -216,6 +225,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Questionario\Create.cshtml" />
     <Content Include="Views\Questionario\AvaliationResult.cshtml" />
+    <Content Include="Views\Cliente\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

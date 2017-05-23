@@ -8,11 +8,18 @@ using EmDica.Web.Models;
 
 namespace EmDica.Web.Controllers
 {
-    public class QuestionarioController : Controller
+    public class QuestionarioController : BaseController
     {
                 
         public ActionResult Create(int tipoQuestionario = 1)
         {
+            string emailUsuarioLogado = string.Empty;
+
+            if (TempData["emailUsuarioLogado"] != null && !string.IsNullOrEmpty(TempData["emailUsuarioLogado"].ToString()))
+                emailUsuarioLogado = TempData["emailUsuarioLogado"].ToString();
+            else
+                return RedirectToAction("Create", "Cliente");
+
             QuestionarioModel questionario = QuestionarioDomain.ObtemQuestionario((TipoQuestionarioModel)tipoQuestionario);
             return View(questionario);
         }

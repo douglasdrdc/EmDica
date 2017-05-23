@@ -1,0 +1,71 @@
+﻿@model EmDica.Web.Models.ClienteModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="text-align: center;">
+    <h2>Para realizar o teste cadastre-se grátis</h2>
+    <h2><small>Basta preencher o formulário abaixo</small></h2>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form">
+                    <div class="container">
+
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group input-group-lg">
+                            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome" } })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group input-group-lg">
+                            @Html.EditorFor(model => model.Sobrenome, new { htmlAttributes = new { @class = "form-control", placeholder = "Sobrenome" } })
+                            @Html.ValidationMessageFor(model => model.Sobrenome, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group input-group-lg">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "E-mail" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group input-group-lg">
+                            @Html.EditorFor(model => model.Empresa, new { htmlAttributes = new { @class = "form-control", placeholder = "Empresa" } })
+                            @Html.ValidationMessageFor(model => model.Empresa, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group input-group-lg">
+                            @Html.EditorFor(model => model.Cargo, new { htmlAttributes = new { @class = "form-control", placeholder = "Cargo" } })
+                            @Html.ValidationMessageFor(model => model.Cargo, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="submit" value="Iniciar Teste" class="btn btn-primary btn-lg" />
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            }
+
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
