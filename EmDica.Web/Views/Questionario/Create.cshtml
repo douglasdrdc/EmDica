@@ -5,51 +5,59 @@
 }
 
 <div>
+    
     <h2>
-        <span>@Model.Nome</span>
+        @Model.Nome
     </h2>    
-    <h4 style="text-align: justify">
-        <span>@Model.Descricao</span>
-    </h4>
+    <h2 style="text-align: justify">
+        <small>@Model.Descricao</small>
+    </h2>
     
     <hr />
+
+    @if (ViewBag.MensagemValidacao != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <span> @ViewBag.MensagemValidacao </span>
+        </div>
+    }
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
                 
         @Html.Hidden("tipoQuest", Convert.ToInt32(Model.TipoQuestionario))
-        
+
         foreach (var pergunta in Model.Perguntas)
         {
-            <h4>
-                @pergunta.Enunciado
-            </h4>
-
-            foreach (var alternativa in pergunta.Alternativas)
-            {
-                <div class="radio">
-                    <label>
-                        @Html.RadioButton(("pergunta" + pergunta.PerguntaId), new { @id=alternativa.AlternativaId })
-                        @alternativa.Descricao
-                    </label>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>
+                        @pergunta.Enunciado
+                    </h4>
                 </div>
-            }
+                <div class="panel-body">
+                    @foreach (var alternativa in pergunta.Alternativas)
+                    {
+                        <div class="radio">
+                            <label>
+                                @Html.RadioButton(("pergunta" + pergunta.PerguntaId), new { @id = alternativa.AlternativaId })
+                                @alternativa.Descricao
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>            
 
             <hr />
         }
-
-
+        
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salvar" class="btn btn-default" />
+            <div class="col-md-12">
+                <input type="submit" value="Receber avaliação" class="btn btn-primary" />
             </div>
         </div>
 
     }
 
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

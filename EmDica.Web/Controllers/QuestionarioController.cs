@@ -22,11 +22,23 @@ namespace EmDica.Web.Controllers
         {
             try
             {
+                if (collection["tipoQuest"] == null)
+                {
+                    ViewBag.MensagemValidacao = "Favor preencher todas as questões do formulário.";
+                    return View();
+                }                
+
                 int tipoQuestionario = Convert.ToInt32(collection["tipoQuest"]);
                 QuestionarioModel questionario = QuestionarioDomain.ObtemQuestionario((TipoQuestionarioModel)tipoQuestionario);
 
                 foreach (var pergunta in questionario.Perguntas)
                 {
+                    if (collection[string.Format("pergunta{0}", pergunta.PerguntaId.ToString())] == null)
+                    {
+                        ViewBag.MensagemValidacao = "Favor preencher todas as questões do formulário.";
+                        return View(questionario);
+                    }
+
                     string alternativaSelecionada = collection[string.Format("pergunta{0}", pergunta.PerguntaId.ToString())];
                     alternativaSelecionada = alternativaSelecionada.Replace("{ id = ", "").Replace("}", "").Trim();
                     pergunta.AlternativaSelecionada = Convert.ToInt32(alternativaSelecionada);
