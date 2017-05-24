@@ -154,6 +154,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\HelperController.cs" />
     <Compile Include="Controllers\QuestionarioController.cs" />
     <Compile Include="Domain\AlternativaDomain.cs" />
     <Compile Include="Domain\PerguntaDomain.cs" />
@@ -164,6 +165,7 @@
     </Compile>
     <Compile Include="Helpers\Util.cs" />
     <Compile Include="Models\AlternativaModel.cs" />
+    <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
     <Compile Include="Models\QuestionarioModel.cs" />
     <Compile Include="Models\ClienteModel.cs" />
@@ -228,6 +230,7 @@
     <Content Include="Views\Questionario\Create.cshtml" />
     <Content Include="Views\Questionario\AvaliationResult.cshtml" />
     <Content Include="Views\Cliente\Create.cshtml" />
+    <Content Include="Views\Helper\Leads.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

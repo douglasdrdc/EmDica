@@ -16,7 +16,7 @@ namespace EmDica.Web.Domain
                 QuestionarioId = 1,                
                 TipoQuestionario = TipoQuestionarioModel.AvaliacaoMarketingAtualEmpresa,
                 Nome = "De qual década é o seu marketing?",
-                Descricao = @"Dizer que a sua empresa é moderna, é fácil! Será que você aplica os conceitos de marketing moderno na sua empresa e de fato sabe usufruir dessa novidade? Faça este teste rápido e veja se você está na década de 90, 2000 ou 2020. De qual década é o marketing da minha empresa?",
+                Descricao = @"Será que você aplica os conceitos de marketing moderno na sua empresa e de fato sabe usufruir dessa novidade? Faça este teste rápido e veja se você está na década de 90, 2000 ou 2020.",
                 Perguntas = PerguntaDomain.ObtemPerguntas(1)
             });
 

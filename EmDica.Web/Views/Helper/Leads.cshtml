@@ -1,0 +1,62 @@
+﻿@model EmDica.Web.Models.LogModel
+
+@{
+    ViewBag.Title = "Leads";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<string> logLines = (List<string>)ViewBag.LogLines;
+}
+
+<div class="text-center">
+    <h3 class="page-header">
+        Controle de Log da Aplicação
+    </h3>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="navbar navbar-default">
+        <div class="navbar-form navbar-left" role="search">
+            <div class="input-group">
+                <span>Data de Geração:</span>&nbsp;
+                @Html.EditorFor(model => model.DataGeracao, new { htmlAttributes = new { @class = "form-control", placeholder = DateTime.Now.ToString("dd/MM/yyyy") } })
+                &nbsp;&nbsp;
+                <a class="btn btn-primary btn-raised btn-sm" onclick="document.forms[0].submit();">Pesquisar</a>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Mensagens de validação -->
+@if (ViewBag.MensagemValidacao != null && !string.IsNullOrEmpty(ViewBag.MensagemValidacao))
+{
+    <div id="divValidacao" class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Atenção!</strong>&nbsp; @ViewBag.MensagemValidacao
+        <br />
+    </div>
+}
+
+
+@if (logLines != null && logLines.Count() > 0)
+{
+    <div>
+        <table class="table table-striped">
+            @foreach (var item in logLines)
+            {
+                <tr>
+                    <td>
+                        @item
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+@section scripts {
+    <script>
+            $(document).ready(function () {
+                $("#DataGeracao").inputmask("mask", { "mask": "99/99/9999" });
+            });
+    </script>
+}
