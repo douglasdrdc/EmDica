@@ -13,13 +13,6 @@ namespace EmDica.Web.Controllers
                 
         public ActionResult Create(int tipoQuestionario = 1)
         {
-            string emailUsuarioLogado = string.Empty;
-
-            if (TempData["emailUsuarioLogado"] != null && !string.IsNullOrEmpty(TempData["emailUsuarioLogado"].ToString()))
-                emailUsuarioLogado = TempData["emailUsuarioLogado"].ToString();
-            else
-                return RedirectToAction("Create", "Cliente");
-
             QuestionarioModel questionario = QuestionarioDomain.ObtemQuestionario((TipoQuestionarioModel)tipoQuestionario);
             return View(questionario);
         }
@@ -55,7 +48,7 @@ namespace EmDica.Web.Controllers
 
                 TempData["ResultadoAvaliacao"] = questionario;
 
-                return RedirectToAction("AvaliationResult");
+                return RedirectToAction("Create", "Cliente");
             }
             catch(Exception ex)
             {

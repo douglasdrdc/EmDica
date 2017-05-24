@@ -15,6 +15,9 @@ namespace EmDica.Web.Controllers
         
         public ActionResult Create()
         {
+            QuestionarioModel questionario = (QuestionarioModel)TempData["ResultadoAvaliacao"];
+            TempData["ResultadoAvaliacao"] = questionario;
+
             return View();
         }
                 
@@ -25,6 +28,8 @@ namespace EmDica.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    QuestionarioModel questionario = (QuestionarioModel)TempData["ResultadoAvaliacao"];
+
                     string ip = System.Web.HttpContext.Current.Request.UserHostAddress;
                     
                     string dadosCliente = string.Format("{0},{1} {2},{3},{4},{5}   {6},{7}",
@@ -40,9 +45,9 @@ namespace EmDica.Web.Controllers
                     
                     loggerAplicacao.Info(dadosCliente);
 
-                    TempData["emailUsuarioLogado"] = cliente.Email;
+                    TempData["ResultadoAvaliacao"] = questionario;
 
-                    return RedirectToAction("Create", "Questionario");
+                    return RedirectToAction("AvaliationResult", "Questionario");
                 }
                 else
                     return View(cliente);
