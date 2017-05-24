@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmDica.Web.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace EmDica.Web.Controllers
         public ActionResult Leads()
         {
             List<string> logLines = new List<string>();
-            string pathFile = string.Format(@"C:\{0}-Server.log", DateTime.Now.ToString("yyyy-MM-dd"));
+            string pathFile = string.Format(@"D:\home\site\wwwroot\LogFiles\{0}-Server.log", Util.ConverteDataBrasilia(DateTime.Now));
+            
             if (!System.IO.File.Exists(pathFile))
             {
                 ViewBag.LogLines = new List<string>();
+                ViewBag.MensagemValidacao = string.Format("Nenhum arquivo encontrado com o nome '{0}'.", pathFile);
                 return View();
             }
 
@@ -24,9 +27,29 @@ namespace EmDica.Web.Controllers
                 using (StreamReader sr = new StreamReader(pathFile))
                 {
                     string line = string.Empty;
+                    string[] dadosLinha;
+                    bool iniciarConcat = false;
+                    string linhaFormatada = string.Empty;
+
                     while ((line = sr.ReadLine()) != null)
                     {
-                        logLines.Add(line);
+                        dadosLinha = line.Split(' ');
+                        iniciarConcat = false;
+                        linhaFormatada = string.Empty;
+
+                        for (int i = 0; i < dadosLinha.Length; i++)                        
+                        {
+                            if (dadosLinha[i] == "LogAplicacao")
+                            {
+                                i++;
+                                iniciarConcat = true;
+                            }
+
+                            if (iniciarConcat)
+                                linhaFormatada += dadosLinha[i] + " ";
+                        }
+
+                        logLines.Add(linhaFormatada);
                     }
                 }
 

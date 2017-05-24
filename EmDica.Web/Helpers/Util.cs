@@ -26,5 +26,23 @@ namespace EmDica.Web.Helpers
 
             return dataRetorno;
         }
+
+        public static string ConverteDataBrasilia(DateTime data)
+        {
+            string dataRetorno = string.Empty;
+
+            DateTime timeUtc = DateTime.UtcNow;
+            TimeZoneInfo kstZone = TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time");
+            DateTime dateTimeBrasilia = TimeZoneInfo.ConvertTimeFromUtc(timeUtc, kstZone);
+
+            dataRetorno = string.Format("{0}-{1}-{2}",
+                dateTimeBrasilia.Year,
+                dateTimeBrasilia.Month.ToString().PadLeft(2, '0'),
+                dateTimeBrasilia.Day.ToString().PadLeft(2, '0')                
+                );
+
+            return dataRetorno;
+        }
+
     }
 }
