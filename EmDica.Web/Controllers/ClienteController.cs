@@ -13,8 +13,14 @@ namespace EmDica.Web.Controllers
     public class ClienteController : BaseController
     {
         
-        public ActionResult Create()
+        public ActionResult Create(int tipoRedirecionamento = 0)
         {
+            if (tipoRedirecionamento != 0)
+            {
+                TempData["tipoRedirecionamento"] = tipoRedirecionamento;
+                ViewBag.Redirecionamento = true;
+            }
+
             QuestionarioModel questionario = (QuestionarioModel)TempData["ResultadoAvaliacao"];
             TempData["ResultadoAvaliacao"] = questionario;
 
@@ -28,8 +34,6 @@ namespace EmDica.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    QuestionarioModel questionario = (QuestionarioModel)TempData["ResultadoAvaliacao"];
-
                     string ip = System.Web.HttpContext.Current.Request.UserHostAddress;
                     
                     string dadosCliente = string.Format("{0},{1} {2},{3},{4},{5}   {6},{7}",
@@ -41,13 +45,26 @@ namespace EmDica.Web.Controllers
                             Util.ConverteDataHorarioBrasilia(DateTime.Now),
                             cliente.Empresa,
                             cliente.Cargo
-                        );
-                    
+                        );                    
                     loggerAplicacao.Info(dadosCliente);
 
-                    TempData["ResultadoAvaliacao"] = questionario;
 
-                    return RedirectToAction("AvaliationResult", "Questionario");
+                    if (TempData["ResultadoAvaliacao"] != null)
+                    {
+                        QuestionarioModel questionario = (QuestionarioModel)TempData["ResultadoAvaliacao"];
+                        TempData["ResultadoAvaliacao"] = questionario;
+                        return RedirectToAction("AvaliationResult", "Questionario");
+                    }
+                    if (TempData["tipoRedirecionamento"] != null)
+                    {
+                        int tipoRedirecionamento = (int)TempData["tipoRedirecionamento"];
+                        switch (tipoRedirecionamento)
+                        {
+                            case 1:
+                                return RedirectToAction("RelacionamentoCliente", "Questionario", new { email = cliente.Email });
+                        }
+                    }
+                    return View(cliente);
                 }
                 else
                     return View(cliente);

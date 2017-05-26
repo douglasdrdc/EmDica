@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using EmDica.Web.Domain;
 using EmDica.Web.Models;
+using System.Text;
 
 namespace EmDica.Web.Controllers
 {
@@ -77,6 +78,37 @@ namespace EmDica.Web.Controllers
             }
         }
 
+        public ActionResult RelacionamentoCliente(string email)
+        {
+            AvaliacaoHipoteseModel model = new AvaliacaoHipoteseModel();
+            model.Email = email;
+            return View(model);
+        }
 
+        [HttpPost]
+        public ActionResult RelacionamentoCliente(AvaliacaoHipoteseModel avaliacao)
+        {
+            try 
+            {
+                if (ModelState.IsValid)
+                {
+                    StringBuilder texto = new StringBuilder();
+                    texto.Append(string.Format("E-mail: {0}. ", avaliacao.Email));
+                    texto.Append(string.Format("Tipo Pessoa: {0}. ", avaliacao.TipoPessoa));
+                    texto.Append(string.Format("Problemas: {0}. ", avaliacao.ProblemasOcorridos));
+                    texto.Append(string.Format("Tratativa: {0}. ", avaliacao.TratativaProblemasOcorridos));
+                    texto.Append(string.Format("Melhoria: {0}.", avaliacao.PropostaMelhoria));
+                    loggerAplicacao.Info(texto.ToString());
+
+                    ViewBag.MensagemSucesso = "Obrigado pela sua resposta!";                    
+                }
+
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return View();
+            }
+        }
     }
 }

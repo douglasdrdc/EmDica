@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="Helpers\Util.cs" />
     <Compile Include="Models\AlternativaModel.cs" />
+    <Compile Include="Models\AvaliacaoHipoteseModel.cs" />
     <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\PerguntaModel.cs" />
     <Compile Include="Models\QuestionarioModel.cs" />
@@ -233,6 +234,7 @@
     <Content Include="Views\Questionario\AvaliationResult.cshtml" />
     <Content Include="Views\Cliente\Create.cshtml" />
     <Content Include="Views\Helper\Leads.cshtml" />
+    <Content Include="Views\Questionario\RelacionamentoCliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
